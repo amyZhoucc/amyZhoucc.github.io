@@ -1,0 +1,811 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon.ico">
+  <link rel="icon" type="image/png" href="/img/icon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>编译原理 - welcome to amyZhoucc&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>amyZhoucc❀</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/dragonCat_desktop.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="编译原理">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-12-18 22:32" pubdate>
+        2020年12月18日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      44
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">编译原理</h1>
+            
+            <div class="markdown-body">
+              <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h1 id="编译原理"><a href="#编译原理" class="headerlink" title="编译原理"></a>编译原理</h1><h2 id="一、基础知识"><a href="#一、基础知识" class="headerlink" title="一、基础知识"></a>一、基础知识</h2><h3 id="1-编译器在语言处理中的位置"><a href="#1-编译器在语言处理中的位置" class="headerlink" title="1. 编译器在语言处理中的位置"></a>1. 编译器在语言处理中的位置</h3><p>语言分类：<strong>机器语言 – 汇编语言 – 高级语言</strong></p>
+<p>汇编语言、高级语言 都需要翻译成机器语言后才能给计算机使用。</p>
+<p>机器语言：计算机能够直接立即的语言，完全是01串构成，eg：C706 0000 0002。难读难写</p>
+<p>汇编语言：引入助记符，更加直观，eg：MOV X, 2。需要依赖特定的机器，且需要记忆相关指令，对于非计算机专业人员使用受限制，而且编写效率很低，简单的功能也需要很多指令才能实现</p>
+<p>高级语言：类似于数学定义或者自然语言的简洁形式，eg：x = 2。编写效率高，不依赖特定机器，更接近人的表达习惯。</p>
+<p>高级语言 –<em>编译</em>–&gt; 汇编语言 –<em>汇编</em>–&gt; 机器语言</p>
+<p>高级语言 –<em>编译</em>–&gt; 机器语言</p>
+<p>编译器在语言处理中的位置：</p>
+<p>如图是源程序变成目标程序的整个步骤：</p>
+<ol>
+<li><p>先经过预处理器：源程序 –&gt; 经过预处理器的源程序</p>
+<p>预处理器就是负责将存放在<strong>不同文件中的源程序聚合在一起</strong>，<em>eg：c语言中的 include，在这一步就会将 include 的文件导进来</em></p>
+<p>将被成为宏的缩写语句转换为原始语句，eg:<em>c语言中的#define NUM 2，会在这一步将所有的宏定义全部转换为具体的值，即所有涉及 NUM 的位置都被替换成 2</em>。</p>
+</li>
+<li><p>经过编译器：预处理的源程序 –&gt; 汇编语言程序</p>
+</li>
+<li><p>经过汇编器：汇编语言程序 –&gt; 可重定位的机器代码</p>
+<p>可重定位就是，在内存中存放的起始位置L是不固定的，相应的代码中的所有地址都是相对位置（相对于L）</p>
+</li>
+<li><p>经过加载器/链接器：可重定位的机器代码 –&gt; 目标机器代码</p>
+<p>加载器能够修改可重定位的地址，将修改后的指令和数据存放到内存中的适当位置——获得了绝对地址</p>
+<p>链接器能够将多个可重定位的机器代码文件连接到一起（针对大型软件来说）；也可以解决外部内存地址问题，一个文件引用了另外一个文件的数据，这个数据的地址对于本文件来说就是外部内存地址，而这个需要链接器来处理。</p>
+</li>
+</ol>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200814211757006.png" srcset="/img/loading.gif" alt="image-20200814211757006" style="zoom:80%;" />
+
+<h3 id="2-编译器的结构"><a href="#2-编译器的结构" class="headerlink" title="2. 编译器的结构"></a>2. 编译器的结构</h3><p>主要由几个阶段（phrase）构成：词法分析、语法分析、语义分析、中间代码生成、目标代码生成、代码优化</p>
+<p>词法分析：类似于分析每个单词的词性</p>
+<p>语法分析：根据语法，去获得每个单词在句子中的类型，是主、谓、宾、定、状、补中哪个类型</p>
+<p>语义分析：获得该语句的含义</p>
+<p>如下图：上面大块就是<strong>分析部分/前端</strong>，是与源语言相关，下面大块就是<strong>综合部分/后端</strong>，与目标语言相关；中间表示是独立的，起到一个桥梁作用</p>
+<p>（代码看成是字符流，所有的数据和变量、关键字都是字符构成的）</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200814215102276.png" srcset="/img/loading.gif" alt="image-20200814215102276" style="zoom: 80%;" />
+
+<h3 id="3-词法分析"><a href="#3-词法分析" class="headerlink" title="3. 词法分析"></a>3. 词法分析</h3><p>词法分析的主要任务：<strong>从左向右</strong>逐行扫描源程序的字符，<strong>识别出各个单词，确定单词类型</strong>。将识别出的单词转换成统一的<strong>机内表示</strong>——词法单元形式：</p>
+<p><strong>token: &lt;种别码, 属性值&gt;</strong></p>
+<p>不同的单词类型，有不同的编码，如下图显示：</p>
+<p>有一词一码：每个单词对应不同的种别码，eg: while——是关键字，对应一个种别码 WHILE；</p>
+<p>也有多词一码：不同的单词对应同一个种别码，eg: num——是变量名，对应一个种别码 var， temp——是变量名，对应同一个种别码 var；</p>
+<p>一型一码：一种类型的单词对应同一个种别码，eg：100——是整型常量，对应一个种别码 CONST，1——也是整型常量，对应同一个种别码 CONST。</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200814221800641.png" srcset="/img/loading.gif" alt="image-20200814221800641" style="zoom:80%;" />
+
+<p>如下图：举例：</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200814222429127.png" srcset="/img/loading.gif" alt="image-20200814222429127" style="zoom:80%;" />
+
+<h3 id="4-语法分析"><a href="#4-语法分析" class="headerlink" title="4. 语法分析"></a>4. 语法分析</h3><p>是从词法分析器输出的token序列中，<strong>识别出各类短语</strong>，并<strong>构造语法分析树</strong>（parse tree）</p>
+<p>语法分析树描述了句子的语法结构。</p>
+<p>如下图，是一个赋值语句经过词法分析器后输出的结果。</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200815215832835.png" srcset="/img/loading.gif" alt="image-20200815215832835" style="zoom:67%;" />
+
+<p>然后将其构造成了一个棵语法分析树：</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200815215951573.png" srcset="/img/loading.gif" alt="image-20200815215951573" style="zoom:67%;" />
+
+<p>语法分析概述：</p>
+<p>例如一个声明语句的文法是：</p>
+<p>如下图：解释就是：一个声明语句（define）由类型（type）+标识符序列（identifications）。</p>
+<p>其中类型可以是int or real or char or bool，而标识符序列可以由标识符本身 or 标识符序列与逗号（涉及到了递归定义）</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200815220144100.png" srcset="/img/loading.gif" alt="image-20200815220144100" style="zoom:67%;" />
+
+<p>举例：</p>
+<p><code>int a, b, c;</code></p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200815220543129.png" srcset="/img/loading.gif" alt="image-20200815220543129" style="zoom:67%;" />
+
+<h3 id="5-语义分析"><a href="#5-语义分析" class="headerlink" title="5. 语义分析"></a>5. 语义分析</h3><p>语义分析的主要任务：</p>
+<ol>
+<li><p>收集标识符的属性信息</p>
+<ul>
+<li><p>标识符的种属（kind）：标识符是简单变量 or 复合变量（数组、记录等）or 过程….</p>
+</li>
+<li><p>类型（type）：标识符是整型、实型、字符型、布尔型、指针型</p>
+</li>
+<li><p>存储的位置（location）：存储的位置、长度</p>
+</li>
+<li><p>值（value）</p>
+</li>
+<li><p>作用域</p>
+</li>
+<li><p>参数和返回值信息：参数个数、参数类型、参数传递方式、返回值类型</p>
+<p>最后构成了如下的表：<strong>符号表+字符串表</strong>（字符串表用来存放该标识符的名字，对应符号表中name存放的是标识符在字符串表中的位置）</p>
+<p>每个标识符都会对应一条记录，每个字段都代表着标识符的一个属性</p>
+<p>（字符串表的作用是：由于标识符名字不定长，所以为了统一，且这样方便查找）</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200815222434503.png" srcset="/img/loading.gif" alt="image-20200815222434503" style="zoom:67%;" />
+</li>
+</ul>
+</li>
+<li><p>语义检查</p>
+<ul>
+<li>变量或者过程未经声明就使用</li>
+<li>变量或者过程名重复声明</li>
+<li>运算分量类型不匹配：看是否需要强转 or 无法相加</li>
+<li>操作符与操作数之间的类型不匹配<ul>
+<li>数组下标不是整数</li>
+<li>非数组变量使用数组访问操作符</li>
+<li>非过程名使用过程调用操作符（过程：函数）</li>
+<li>过程调用的参数类型或数目不匹配</li>
+<li>函数返回类型有误</li>
+</ul>
+</li>
+</ul>
+<h3 id="6-中间代码生成和编译器后端"><a href="#6-中间代码生成和编译器后端" class="headerlink" title="6. 中间代码生成和编译器后端"></a>6. 中间代码生成和编译器后端</h3><p>中间表示形式：三地址码/语法结构树（syntax tree）——语法分析树（parse tree）是不同的</p>
+<p>三地址码：类似于汇编语言的<strong>指令序列构成</strong>，每个指令<strong>最多有3个操作数</strong></p>
+<p>常用的三地址指令：</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200816154820636.png" srcset="/img/loading.gif" alt="image-20200816154820636" style="zoom:80%;" />
+
+<p>地址可以表示为：源程序中的名字（通过符号表可以直接搜到地址）、常量、编译器生成的临时变量</p>
+<p>三地址指针的表示：</p>
+<ul>
+<li><p>四元式：<code>(op, y, z, x)</code>——操作符，操作数1，操作数2，结果 </p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200816155519828.png" srcset="/img/loading.gif" alt="image-20200816155519828" style="zoom:80%;" />
+</li>
+<li><p>三元式</p>
+</li>
+<li><p>间接三元式</p>
+</li>
+</ul>
+<p>目标代码生成：根据获得的中间表示形式作为输入，并映射到目标语言；还有一个任务就是为成程序中<strong>使用的变量合理分配寄存器</strong>。</p>
+<p>代码优化：是为了改进代码所作的等价程序变换，使得运行的更快一些、占用空间更少一些</p>
+<p>一个是对中间表示形式的优化——机器无关代码优化器；一个是对目标语言的优化——机器相关代码优化器</p>
+</li>
+</ol>
+<h2 id="二、语言及其文法"><a href="#二、语言及其文法" class="headerlink" title="二、语言及其文法"></a>二、语言及其文法</h2><h3 id="1-字母表"><a href="#1-字母表" class="headerlink" title="1. 字母表"></a>1. 字母表</h3><p>注意：字母表是一个<strong>有穷符号集合</strong>，而符号可以是各种类型的</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200816163750572.png" srcset="/img/loading.gif" alt="image-20200816163750572" style="zoom:67%;" />
+
+<p>字母表的运算：</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200816164004336.png" srcset="/img/loading.gif" alt="image-20200816164004336" style="zoom: 67%;" />
+
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200816164130886.png" srcset="/img/loading.gif" alt="image-20200816164130886" style="zoom:67%;" />
+
+<p>$\varepsilon$表示空串 里面没有一个符号</p>
+<p>（黄色句子的理解：n次幂，就说明该字母表自身乘了n次，那么该集合中的每个元素都有n长度，那么该集合也就是由很多个n长度的符号串构成的集合）ps：如果字母表的元素个数为m，那么n次幂的集合有$m^n$个元素</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200816164642167.png" srcset="/img/loading.gif" alt="image-20200816164642167" style="zoom:67%;" />
+
+<p>正闭包就是包含了字母表1~n次幂的集合的并集，所以里面的每个元素长度都是正数</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200816165113932.png" srcset="/img/loading.gif" alt="image-20200816165113932" style="zoom:67%;" />
+
+<p>串的概念：在$\sum^*$上的定义 是字母表中符号的一个有穷序列</p>
+<p>串的长度：$|s|$ 就是指串中的符号个数 eg: $|aab| = 3$</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200816172320604.png" srcset="/img/loading.gif" alt="image-20200816172320604" style="zoom:67%;" />
+
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200816172616109.png" srcset="/img/loading.gif" alt="image-20200816172616109" style="zoom:67%;" />
+
+<h3 id="2-文法定义"><a href="#2-文法定义" class="headerlink" title="2. 文法定义"></a>2. 文法定义</h3><p><strong>语言的基本符号</strong>：未用尖括号括起来的部分，在单词的文法中就是指字母；在句子的文法中就是指单词</p>
+<p><strong>语法成分</strong>：尖括号括起来的部分，在单词的文法中就是指&lt;动词&gt;、&lt;名词&gt;、&lt;形容词&gt;等</p>
+<p><strong>文法的形式化定义</strong>：</p>
+<p>一个四元组构成了文法</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200816182324674.png" srcset="/img/loading.gif" alt="image-20200816182324674" style="zoom:67%;" />
+
+<p>终结符集合：——基本符号，即从终结符不能再推导出其他的符号了（就是句子文法中的单词就是终结符集合）</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200816182406891.png" srcset="/img/loading.gif" alt="image-20200816182406891" style="zoom:67%;" />
+
+<p>非终结符集合：——语法成分</p>
+<p>（由于可以从该语法成分中推导出更多的成分，所以称为非终结符）</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200816182533793.png" srcset="/img/loading.gif" alt="image-20200816182533793" style="zoom:67%;" />
+
+<p>终结符和非终结符的区别和关系：</p>
+<p>两者不相交、并集就构成就构成了文法符号集</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200816182901658.png" srcset="/img/loading.gif" alt="image-20200816182901658" style="zoom:67%;" />
+
+<p>产生式集合：即用来产生串的式子，就是告知如何能产生一个串</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200816183028522.png" srcset="/img/loading.gif" alt="image-20200816183028522" style="zoom:67%;" />
+
+<p>举例：</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200816183245399.png" srcset="/img/loading.gif" alt="image-20200816183245399" style="zoom:67%;" />
+
+<p>开始符号：句子中的最大语法成分</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200816183412579.png" srcset="/img/loading.gif" alt="image-20200816183412579" style="zoom:67%;" />
+
+<p>举例：</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200816183531158.png" srcset="/img/loading.gif" alt="image-20200816183531158" style="zoom:67%;" />
+
+<p>产生式的简写：——有相同左边的产生式可以写在同一行中，中间用竖线相隔</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200816183629800.png" srcset="/img/loading.gif" alt="image-20200816183629800" style="zoom:67%;" />
+
+<p>符号约定：</p>
+<p>终结符约定：</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200816183803878.png" srcset="/img/loading.gif" alt="image-20200816183803878" style="zoom:67%;" />
+
+<p>非终结符约定：</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200816183836309.png" srcset="/img/loading.gif" alt="image-20200816183836309" style="zoom:67%;" />
+
+<p>其他规定：</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200816184036957.png" srcset="/img/loading.gif" alt="image-20200816184036957" style="zoom:67%;" />
+
+<p>总结：</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200816184148003.png" srcset="/img/loading.gif" alt="image-20200816184148003" style="zoom: 80%;" />
+
+<h3 id="3-语言的定义"><a href="#3-语言的定义" class="headerlink" title="3. 语言的定义"></a>3. 语言的定义</h3><p>问题引出：前面定义了一个句子的文法，那么有了文法（语言规则），如何<strong>判定一个词串是否是满足该文法的句子</strong></p>
+<ul>
+<li><p>推导</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200819181923154.png" srcset="/img/loading.gif" alt="image-20200819181923154" style="zoom:67%;" />
+
+<p>总结就是：产生式的右部推导出产生式的左部</p>
+<p>形象的描述就是：$a_0$经过n步推导出$a_n$</p>
+<p>$n=1$时，即$a_0 \Rightarrow a_1$——为一步推导</p>
+<p>$n=0$时，即$a_0 \Rightarrow a_0$——没有推导</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200819182146441.png" srcset="/img/loading.gif" alt="image-20200819182146441" style="zoom:67%;" />
+</li>
+<li><p>规约</p>
+<p>总结为：用产生式的左部来规约产生式的右部</p>
+<p>举例：</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200819182603518.png" srcset="/img/loading.gif" alt="image-20200819182603518" style="zoom:67%;" />
+
+<p>所以，如何判断一个字符串是满足规定文法的句子：</p>
+<ul>
+<li>从句子推导：即从句子的文法推导出字符串——从生成语言的角度</li>
+<li>从句子规约：即从字符串推导到文法——从识别语言的角度</li>
+</ul>
+<p>=&gt; 都是根据规则推出的</p>
+<p><strong>句子和句型</strong></p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200819204136228.png" srcset="/img/loading.gif" alt="image-20200819204136228" style="zoom:67%;" />
+
+<p>注意区别：句型可以包含终结符，也可以包含非终结符，也可能是空串</p>
+<p>从开始符号（文法中最大的语法成分）经过若干步变成了终结符号串，那么就变成了句子，所以句子，意味着<strong>不包含非终结符</strong>的<strong>句型</strong></p>
+<p>举例：</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200819212901324.png" srcset="/img/loading.gif" alt="image-20200819212901324" style="zoom: 67%;" />
+
+</li>
+</ul>
+<h3 id="4-语言的形式化定义"><a href="#4-语言的形式化定义" class="headerlink" title="4. 语言的形式化定义"></a>4. 语言的形式化定义</h3><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200819213238209.png" srcset="/img/loading.gif" alt="image-20200819213238209" style="zoom:67%;" />
+
+<p>问题：</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200819213324485.png" srcset="/img/loading.gif" alt="image-20200819213324485" style="zoom:67%;" />
+
+<p>是无穷多个</p>
+<p><strong>所以文法能够解决，无穷语言的有穷定义</strong></p>
+<p>问题：</p>
+<p>如下图的文法，描述了什么内容？</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200819213432505.png" srcset="/img/loading.gif" alt="image-20200819213432505" style="zoom: 67%;" />
+
+<p>D是数字，L是字母，T是字母、数字、数字字母构成的字符串，所以S是单个字母或者首字母+字母数字串——标识符的构成文法</p>
+<h3 id="5-语言上的运算"><a href="#5-语言上的运算" class="headerlink" title="5. 语言上的运算"></a>5. 语言上的运算</h3><p>语言是一个集合，那么就可以进行一定的计算</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200819213737603.png" srcset="/img/loading.gif" alt="image-20200819213737603" style="zoom:67%;" />
+
+<p>那么标识符也可以如下表示：</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200819213904243.png" srcset="/img/loading.gif" alt="image-20200819213904243" style="zoom:67%;" />
+
+<h3 id="6-文法的分类"><a href="#6-文法的分类" class="headerlink" title="6. 文法的分类"></a>6. 文法的分类</h3><p>Chomsky文法分类体系</p>
+<ul>
+<li><p>0型文法（Type-0 Grammar）</p>
+<p>没有任何限制，只需要$\alpha$至少包含一个非终结符</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200819214155486.png" srcset="/img/loading.gif" alt="image-20200819214155486" style="zoom:67%;" />
+</li>
+<li><p>1型文法</p>
+<p>$\alpha$至少要包含一个非终结符，且产生式的左侧字符的个数不能比右侧的多</p>
+<p>称为上下文有关文法，因为只有当非终结符的上下文为$\alpha_1,\alpha_2$是，才能进行替换</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200819214246683.png" srcset="/img/loading.gif" alt="image-20200819214246683" style="zoom:67%;" />
+
+<p>证明：上下文有关语法的产生式右部不存在空串$\varepsilon$</p>
+<p>假设右侧为$\varepsilon$，即右侧为空，那么左侧也为空。而又要求了左侧至少包含一个非终结符，所以与前提相悖，命题得证</p>
+</li>
+<li><p>2型文法</p>
+<p>$\alpha$至少要包含一个非终结符，且产生式的左侧字符的个数不能比右侧的多，且左侧都是非终结符</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200819221501774.png" srcset="/img/loading.gif" alt="image-20200819221501774" style="zoom:67%;" />
+
+<p>语言：</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200819221711531.png" srcset="/img/loading.gif" alt="image-20200819221711531" style="zoom:67%;" />
+
+<p>举例：</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200819221631090.png" srcset="/img/loading.gif" alt="image-20200819221631090" style="zoom:50%;" />
+
+<p>标识符的文法——也是一个上下文呢无关文法</p>
+</li>
+<li><p>3型文法</p>
+<p>即在P的所有产生式中：固定一种模式：</p>
+<p>右线性文法：终结符号串+非终结符号串 or 终结符号串</p>
+<p>左线性文法：非终结符号串+终结符号串 or 终结符号串</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200819221740714.png" srcset="/img/loading.gif" alt="image-20200819221740714" style="zoom:67%;" />
+
+<p>语言：</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200819222147650.png" srcset="/img/loading.gif" alt="image-20200819222147650" style="zoom:67%;" />
+
+<p>举例：都是标识符的文法</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200819222043180.png" srcset="/img/loading.gif" alt="image-20200819222043180" style="zoom:67%;" />
+
+<p>左线性文法：</p>
+<p>$S \rightarrow La|Lb|Lc|Ld|L0|L1|L2|L3|L4$</p>
+<p>$L \rightarrow La|Lb|Lc|Ld|L0|L1|L2|L3|L4$</p>
+<p>$L \rightarrow a|b|c|d$</p>
+<p><strong>四种文法之间的关系</strong></p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200819222840974.png" srcset="/img/loading.gif" alt="image-20200819222840974" style="zoom:67%;" />
+
+
+
+</li>
+</ul>
+<h3 id="7-CFG分析树（上下文无关文法的分析树）"><a href="#7-CFG分析树（上下文无关文法的分析树）" class="headerlink" title="7. CFG分析树（上下文无关文法的分析树）"></a>7. CFG分析树（上下文无关文法的分析树）</h3><p>如下图，左侧是文法定义，且是上下文无关文法，右侧是根据该文法构造的一棵分析树（不是唯一，可以有无数棵）</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200821133843728.png" srcset="/img/loading.gif" alt="image-20200821133843728" style="zoom:80%;" />
+
+<p>有如下定义：</p>
+<ul>
+<li>根节点是文法的开始符号，在上图中就是<code>E</code>；</li>
+<li>条2的含义是，类似于二叉树的前序遍历，根节点就是左部（首先遍历），其子节点构成了右部（从左向右遍历）</li>
+<li>条3，注意：叶子节点得到的符号串要从左向右构成</li>
+</ul>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200821134036649.png" srcset="/img/loading.gif" alt="image-20200821134036649" style="zoom: 80%;" />
+
+<p>分析树的作用：<strong>是推导的图形化表示</strong></p>
+<p>即从S开始推导，所有推导均可以构造一个分析树与之对应</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200821134601979.png" srcset="/img/loading.gif" alt="image-20200821134601979" style="zoom:67%;" />
+
+<p>举例：</p>
+<p>如下图的从表达式的CFG文法，构造出的推导过程，可以等效获得其分析树</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200821134654000.png" srcset="/img/loading.gif" alt="image-20200821134654000" style="zoom:67%;" />
+
+<p><strong>短语</strong></p>
+<p>子树的边缘（子树从左向右排列得到的）——短语（某个产生式的左部）</p>
+<p>直接短语——该子树的深度为2</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200821134809434.png" srcset="/img/loading.gif" alt="image-20200821134809434" style="zoom:67%;" />
+
+<p>举例：</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200821135023559.png" srcset="/img/loading.gif" alt="image-20200821135023559" style="zoom: 80%;" />
+
+<p>:warning: 特别注意：直接短语一定是某个产生式的右部——因为推导过程一定是根据产生式来的</p>
+<p>产生式的右部不一定是给定句型的直接短语——可能作为中间推导过程了，也可能在该句型中没有用到</p>
+<p>举例：</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200821135315566.png" srcset="/img/loading.gif" alt="image-20200821135315566" style="zoom:80%;" />
+
+<p>如上图，该句子<em>提高人民生活水平</em>，人民在该句子中是一个直接短语，也是某个产生式的右部，但是高人，是产生式的右部，但是<strong>在该句子中</strong>不是直接短语。</p>
+<h3 id="8-二义性文法"><a href="#8-二义性文法" class="headerlink" title="8. 二义性文法"></a>8. 二义性文法</h3><p>一个<strong>句子</strong>可以对应生成多棵分析树——<strong>文法</strong>二义性</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200821140008263.png" srcset="/img/loading.gif" alt="image-20200821140008263" style="zoom:67%;" />
+
+<p>举例：</p>
+<p>如下图，显然，将else分配给不同的if能够构成两棵分析树，也产生了两种语义</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200821140557370.png" srcset="/img/loading.gif" alt="image-20200821140557370" style="zoom:67%;" />
+
+<p>因此会有问题，编译器希望文法没有二义性，如果有二义性计算机不知道该如何处理歧义问题，操作不确定。</p>
+<p>所以引入消歧规则：</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200821140848856.png" srcset="/img/loading.gif" alt="image-20200821140848856" style="zoom:67%;" />
+
+<p>那么上图的第一个分析树就是正确的。</p>
+<p>二义性文法的判定：</p>
+<p>无法明确确定某个文法是否是有二义性，类似于完备性：满足条件的一定没有二义性，但是不满足的不一定有二义性（存在误报）</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200821140947204.png" srcset="/img/loading.gif" alt="image-20200821140947204" style="zoom:67%;" />
+
+
+
+<h2 id="三、词法分析"><a href="#三、词法分析" class="headerlink" title="三、词法分析"></a>三、词法分析</h2><h3 id="1-正则表达式"><a href="#1-正则表达式" class="headerlink" title="1. 正则表达式"></a>1. 正则表达式</h3><p>程序中的大多数单词都可以用正则语言来表示，而正则表达式能够更紧凑的表达文法</p>
+<p>语言是一个集合，所以能在集合上进行运算</p>
+<p>引出举例：</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200821205230696.png" srcset="/img/loading.gif" alt="image-20200821205230696" style="zoom:67%;" />
+
+<p>如上图，表达的是一个语言，该语言的含义是：由该语言构成的句子要满足：句子开始是字母<code>a</code>，后面连接任意长度的<code>a,b</code>串（可以为空），此时句子可以结束；也可以在这之后连接一个<code>.</code>或者<code>_</code>，然后连接上一个长度&gt;=1的<code>a,b</code>串</p>
+<p>如上的语言，可以用<strong>正则表达式来更紧凑的描述正则语言</strong></p>
+<p>如上图，可以用如下的正则表达式来表达：</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200821205704210.png" srcset="/img/loading.gif" alt="image-20200821205704210" style="zoom:67%;" />
+
+<p>如何构建正则表达式：（递归）</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200821205815070.png" srcset="/img/loading.gif" alt="image-20200821205815070" style="zoom: 67%;" />
+
+<p>正则表达式的定义：</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200821205949352.png" srcset="/img/loading.gif" alt="image-20200821205949352" style="zoom: 67%;" />
+
+<p>要注意最初的定义：$\varepsilon$也是一个正则表达式，表达式就是其本身；字母表中的每个字母也是正则表达式，表达式就是其本身 =&gt; 这两个是递归的基础</p>
+<p>举例：</p>
+<p>可以看到$L(a) = a,L(b) = b$，那么：</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200821210530179.png" srcset="/img/loading.gif" alt="image-20200821210530179" style="zoom:80%;" />
+
+<p>几个进制的正则表达式：</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200821211138526.png" srcset="/img/loading.gif" alt="image-20200821211138526" style="zoom:80%;" />
+
+<p>一些定义：</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200821211347463.png" srcset="/img/loading.gif" alt="image-20200821211347463" style="zoom:67%;" />
+
+<p>语言和正则表达式之间的关系：</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200821211531143.png" srcset="/img/loading.gif" alt="image-20200821211531143" style="zoom:67%;" />
+
+<p>正则文法和正则表达式之间的关系：</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200821211557097.png" srcset="/img/loading.gif" alt="image-20200821211557097" style="zoom:67%;" />
+
+<h3 id="3-正则定义"><a href="#3-正则定义" class="headerlink" title="3. 正则定义"></a>3. 正则定义</h3><p>本质上就是给正则表达式起名字，之后的正则表达式就可以直接用名字使用它了，而不是重复定义一遍。</p>
+<p>如下，左侧就是名字，右侧就是正则表达式</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200821213638066.png" srcset="/img/loading.gif" alt="image-20200821213638066" style="zoom:67%;" />
+
+<p>举例：</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200821213902615.png" srcset="/img/loading.gif" alt="image-20200821213902615" style="zoom:80%;" />
+
+<p>举例2：</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200821213950510.png" srcset="/img/loading.gif" alt="image-20200821213950510" style="zoom:67%;" />
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/12/20/GDB%E8%B0%83%E8%AF%95%E5%A4%9A%E8%BF%9B%E7%A8%8B%E7%A8%8B%E5%BA%8F/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">GDB调试多进程程序</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/12/18/filesystem/">
+                        <span class="hidden-mobile">文件系统</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="#"><span>I</span></a> <i class="iconfont icon-love"></i> <a href="#"><span>coding</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

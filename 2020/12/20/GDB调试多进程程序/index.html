@@ -1,0 +1,522 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon.ico">
+  <link rel="icon" type="image/png" href="/img/icon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>GDB调试多进程程序 - welcome to amyZhoucc&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>amyZhoucc❀</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/dragonCat_desktop.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="GDB调试多进程程序">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-12-20 14:50" pubdate>
+        2020年12月20日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      667 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      7
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">GDB调试多进程程序</h1>
+            
+            <div class="markdown-body">
+              <h1 id="GDB调试多进程程序"><a href="#GDB调试多进程程序" class="headerlink" title="GDB调试多进程程序"></a>GDB调试多进程程序</h1><p>样例程序：</p>
+<p><img src="/img/image-20200927122824169.png" srcset="/img/loading.gif" alt="example"></p>
+<p>程序含义：父进程1通过fork创建一个子进程，该子进程是父进程的副本，共享代码段。</p>
+<p><code>fork()</code>调用之后，父进程的返回值是<strong>非零值</strong>；子进程的返回值是<strong>0</strong></p>
+<p><code>exec()</code>会覆盖其地址空间，所以execlp之后的代码段不会再执行</p>
+<p>所以，子进程是执行了10，13<del>14；父进程是执行了10，13，16</del>21。</p>
+<p>进行调试：</p>
+<p>常见指令：</p>
+<ol>
+<li><p><code>g++ -g test.c -o test</code>：编译，并且允许gdb调试，编译对象是<code>test.c</code>，编辑结果是可执行文件<code>test</code></p>
+</li>
+<li><p><code>gdb ./test</code>：开始进行调试</p>
+</li>
+<li><p><code>break line_num</code>： 设置断点</p>
+</li>
+<li><p><code>r/run</code>：开始运行</p>
+</li>
+<li><p><code>next</code>：单步调试，不进入子函数</p>
+</li>
+<li><p><code>c/continue</code>：继续执行到下一个断点/程序结束</p>
+</li>
+<li><p><code>info thread</code>：查看当前程序的线程信息（&gt;=1）</p>
+<p>标星号的表示，当前跟踪的进程</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200927130215464.png" srcset="/img/loading.gif" alt="image-20200927130215464"  />
+</li>
+<li><p><code>info inferiors</code>：查看调试的进程：</p>
+<p>标星号的表示当前跟踪的线程</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200927133907126.png" srcset="/img/loading.gif" alt="image-20200927133907126"  />
+</li>
+<li><p><code>inferior num</code>：切换进程</p>
+</li>
+</ol>
+<p>对于多进程的调试，需要进行一定的设置。</p>
+<p>一般情况下，父进程 fork 一个子进程，GDB只会继续调试父进程而不会管子进程的运行。如果想跟踪子进程进行调试，可以用：</p>
+<p><code>set follow-fork-mode child</code>：当 fork 子进程后，<strong>只</strong>跟踪子进程，而放弃对父进程的跟踪（所以查看线程只会发现当前线程）；</p>
+<p><code>set follow-fork-mode parent</code>：默认状态</p>
+<p>(<code>show follow-fork-mode </code>：查看当前的跟踪模式)</p>
+<p>由于上面的只会关注一个线程，如果想同时调试父子进程，使用：</p>
+<p><code>set detach-on-fork on</code>：只调试进程中的某一个</p>
+<p><code>set detach-on fork off</code>：父子进程都在GDB的控制之下。其中一个进程正常调试，根据<code>follow-fork-mode</code>来决定；另一个进程会被暂停</p>
+<p>(<code>show detach-on-fork</code>)</p>
+<p>如果子进程使用 exec 系统函数而装载了新程序执行，那么就使用：</p>
+<p><code>set follow-exec-mode new</code>：新建一个 inferior 给执行起来的子进程，而父进程的 inferior 仍然保留</p>
+<p><code>set follow-exec-mode same</code>：默认值</p>
+<p>总结：如何使用gdb调试多线程：</p>
+<ol>
+<li><p>编译，产生可执行文件</p>
+</li>
+<li><p>进入GDB调试</p>
+</li>
+<li><p>具体调试指令：</p>
+<ul>
+<li><p><code>break 7</code></p>
+</li>
+<li><p><code>set detach-on-fork off</code></p>
+</li>
+<li><p><code>set follow-fork-mode child</code></p>
+</li>
+<li><p><code>run</code>（执行完行7后暂停）</p>
+</li>
+<li><p>info inferiors（未创建 fork 之前）</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200927142112584.png" srcset="/img/loading.gif" alt="image-20200927142112584"  />
+</li>
+<li><p>info threads（未创建 fork 之前）</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200927142050733.png" srcset="/img/loading.gif" alt="image-20200927142050733"  />
+</li>
+<li><p>next</p>
+</li>
+<li><p>next</p>
+</li>
+<li><p>info inferiors（创建 fork 之后）</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200927141907854.png" srcset="/img/loading.gif" alt="image-20200927141907854"  />
+</li>
+<li><p>info threads（创建 fork 之后）</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200927141935482.png" srcset="/img/loading.gif" alt="image-20200927141935482"  />
+</li>
+<li><p>next….（直到子进程运行结束）</p>
+</li>
+<li><p>info inferiors（子进程已经执行结束，只剩下父进程）</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200927141820889.png" srcset="/img/loading.gif" alt="image-20200927141820889"  />
+</li>
+<li><p>inferior 1</p>
+</li>
+<li><p>info inferiors</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200927142305743.png" srcset="/img/loading.gif" alt="image-20200927142305743"  />
+</li>
+<li><p>next….（直到父进程运行结束）</p>
+</li>
+<li><p>info inferiors</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200927142445469.png" srcset="/img/loading.gif" alt="image-20200927142445469"  />
+
+</li>
+</ul>
+</li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/12/18/compiler/">
+                        <span class="hidden-mobile">编译原理</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="#"><span>I</span></a> <i class="iconfont icon-love"></i> <a href="#"><span>coding</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
